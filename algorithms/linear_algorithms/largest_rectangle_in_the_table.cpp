@@ -33,9 +33,30 @@ int countSquareInGistogram(vector<int> a){
     return res;
 }
 
+int countSquareInTable(vector<vector<int>> arr){
+    vector<int> gistogram(arr[0].size(), 0);
+    int res = 0;
+    for (int i = 0; i<arr.size(); i++){
+        for (int j = 0; j<gistogram.size(); j++){
+            if (arr[i][j] == 0){
+                gistogram[j] += 1;
+            } else {
+                gistogram[j] = 0;
+            }
+        }
+        res = max(res, countSquareInGistogram(gistogram));
+    }
+    return res;
+}
+
 int main() {
-    vector<int> a = {3, 5, 2, 6, 4, 1, 8, 7};
-    int res = countSquareInGistogram(a);
+    vector<vector<int>> a = {
+        {0, 1, 0, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 1, 1},
+        {1, 0, 1, 0, 0}
+    };
+    int res = countSquareInTable(a);
 
     cout << res << endl;
     return 0;
